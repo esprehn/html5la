@@ -1,0 +1,168 @@
+html, body {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 36px;
+  background-color: #2F2F2F;
+  width: 100%;
+  height: 100%;
+  /*
+    Strange bug in Firefox causes the whole page to drift
+    left unless we fix the position. Probably some focus
+    weirdness.
+  */
+  position: fixed;
+}
+
+h1, h2, h3, h4, ul, ol, li, p {
+  margin: 0;
+  padding: 0;
+}
+
+#intro h3,
+#intro h1 {
+  margin-bottom: 20px;
+}
+
+#intro h2 {
+  font-weight: normal;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+#intro h3 {
+  font-size: 0.8em;
+  font-weight: normal;
+}
+
+#intro {
+  text-align: center;
+  color: white;
+  text-shadow: black 0.1em 0.1em 0.2em;
+  background: url(../images/google-transparent-200.png) no-repeat bottom center;
+  padding: 200px 0 100px 0;
+}
+
+deck, slide {
+  display: block;
+}
+
+deck {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+slide {
+  font-size: 1.2em;
+  width: 860px;
+  height: 660px;
+  margin: 10px 50px;
+  padding: 20px 40px;
+  position: absolute;
+  background: white url(../images/google.png) 755px 630px no-repeat;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #666;
+  -webkit-transition: left 0.8s, -webkit-transform 0.8s;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
+  -webkit-transform: scale(0.85) skew(-2deg) translateZ(0);
+  -moz-transition: left 0.8s, -moz-transform 0.8s;
+  -moz-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
+  -moz-transform: scale(0.85) skew(-2deg);
+  left: 880px;
+}
+
+slide p,
+slide li {
+  white-space: pre-line;
+}
+
+slide li {
+  margin: 0.5em;
+}
+
+slide ol,
+slide ul {
+  list-style-position: inside;
+  margin: 1em 0.5em;
+}
+
+slide img {
+  display: block;
+  margin: 0 auto;
+}
+
+.previous {
+  -webkit-transform: scale(0.85) skew(2deg) translateZ(0);
+  -moz-transform: scale(0.85) skew(2deg);
+  left: -880px;
+}
+
+.current {
+  left: 0;
+  -webkit-transform: none;
+  -moz-transform: none;
+  opacity: 1;
+}
+
+slide h2 {
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+  font-weight: 400;
+  color: black;
+}
+
+slide h3 {
+  font-size: 1em;
+  margin: 0;
+  font-weight: 400;
+}
+
+#counter {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 0.4em;
+  color: white;
+}
+
+#counter span,
+#counter a {
+  text-decoration: none;
+  color: white;
+}
+
+#counter > span {
+  display: inline-block;
+  width: 1.2em;
+  text-align: center;
+}
+
+#counter a:hover {
+  color: #007BC3;
+  text-decoration: underline;
+}
+
+.interlude strong {
+  text-transform: uppercase;
+}
+
+.interlude h3 {
+  font-size: 2em;
+  padding: 1em 0;
+  text-align: center;
+}
+
+.interlude p {
+  text-align: right;
+}
+
+.syntaxhighlighter {
+  font-size: 0.7em;
+}
+
+.syntaxhighlighter .gutter {
+  visibility: hidden;
+}

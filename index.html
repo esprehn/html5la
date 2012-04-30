@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AngularJS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="syntaxhighlighter/shThemeDefault.css" type="text/css">
+    <script src="js/jquery-1.7.min.js"></script>
+    <script src="js/angular-0.10.5.min.js" ng:autobind></script>
+    <script src="js/presentation.js"></script>
+    <script src="syntaxhighlighter/shCore.js"></script>
+    <script src="syntaxhighlighter/shBrushJScript.js"></script>
+    <script src="syntaxhighlighter/shBrushXml.js"></script>
+    <script>SyntaxHighlighter.all();</script>
+  </head>
+  <body ng:controller="PresentationController">
+
+    <div id="intro">
+      <h1>AngularJS</h1>
+      <h2>
+        Elliott Sprehn
+      </h2>
+      <h3 ng:show="isAfter()">@ElliottZ</h3>
+    </div>
+
+    <p id="counter" ng:show="isInsideDeck()">
+      <a href="#/slides/1">&laquo;</a>
+      {{activeSlide + 1}} / {{totalSlides}}
+      <a href="#/slides/{{totalSlides}}">&raquo;</a>
+    </p>
+
+    <deck current="activeSlide" total="totalSlides">
+      <!--
+        * JavaScript was mostly fancy forms.
+      -->
+      <slide>
+        <h2>Remember Web 1.0 ?</h2>
+        <ol>
+          <li>Create a template
+          <li>Write a little JavaScript
+          <li>Style it
+        </ol>
+      </slide>
+
+      <!--
+        * JSON, XHR, Google Maps, GMail, etc.
+      -->
+      <slide>
+        <h2>Remember Web 2.0 ?</h2>
+        <ol>
+          <li>Create a template
+          <li>Create web services
+          <li>Write a bunch of JavaScript
+          <li>Style it
+        </ol>
+      </slide>
+
+      <!--
+        * Advanced forms, network, location services
+        * Tons of power, but tons of complexity
+      -->
+      <slide>
+        <h2>Now HTML5</h2>
+        <p>
+          <img src="images/HTML5_Logo_512.png" height="400">
+        </p>
+      </slide>
+
+      <!--
+        * Amount of complexity in a typical app has grown substantially.
+        * Need a way to manage that complexity
+      -->
+      <slide class="interlude">
+        <h2>and that means...</h2>
+        <h3>
+          <strong>tons</strong> of JavaScript!
+        </h3>
+        <p>
+            and the need to think differently.
+        </p>
+      </slide>
+
+      <!--
+        * Integrates with jQuery directly, plays well with most others.
+      -->
+      <slide>
+        <h2>AngularJS</h2>
+        <ul>
+          <li>Framework for building web apps
+          <li>Friends with jQuery (and others)
+          <li>Open Source on Github
+          <li>Google funded
+        </ul>
+      </slide>
+
+      <!--
+        * Encapsulated controllers without DOM manipulation.
+        * Reusable services that abstract away logic (better for tests).
+      -->
+      <slide>
+        <h2>Model-View-Controller</h2>
+        <ul>
+          <li>Controllers
+          <li>Services
+        </ul>
+        <script type="syntaxhighlighter" slide:code>
+          <div ng:controller="CommentController">
+            <textarea
+              ng:model="message"
+              name="message"></textarea>
+            <button ng:click="post()">Post</button>
+          </div>
+        </script>
+      </slide>
+
+      <!--
+        * Bring the power of MXML (Flex) to HTML
+      -->
+      <slide>
+        <h2>Declarative markup</h2>
+        <ul>
+          <li>Custom attributes
+          <li>Custom elements
+          <li>Flexible compiler
+        </ul>
+        <script type="syntaxhighlighter" slide:code>
+          <app:toolbar>
+            <input ng:model="message" name="message">
+            <button ng:click="send(message)">
+              Send message to {{username}}
+            </button>
+          </app:toolbar>
+        </script>
+      </slide>
+
+      <!--
+        * Modern apps much simpler with data binding
+        * We know better now...
+        * More Flex goodness
+      -->
+      <slide>
+        <h2>Two-way data binding</h2>
+        <script type="syntaxhighlighter" slide:code>
+          <input ng:model="start" type="date">
+          <input ng:model="end" type="date">
+          <select
+            ng:model="meal"
+            ng:options="food.name for food in foods">
+          </select>
+          <p>
+            Dinner is
+            from {{start | date:'short'}}
+            to {{end | date:'short'}}
+            and will be {{meal.name}}.
+          </p>
+        </script>
+      </slide>
+
+      <slide>
+        <h2>Easy repetition</h2>
+        <ul>
+          <li>Fast
+          <li>Live updating
+        </ul>
+        <script type="syntaxhighlighter" slide:code>
+          <div ng:repeat="comment in comments">
+            <h2>Posted by {{comment.username}}</h2>
+            <p>{{comment.text}}</p>
+          </div>
+        </script>
+      </slide>
+
+      <!--
+        * Automatic discovery of injection points
+        * All things in the framework get injection
+      -->
+      <slide>
+        <h2>RESTful resources</h2>
+        <script type="syntaxhighlighter" slide:code>
+          &lt;script&gt;
+            function PostController($resource) {
+              var Posts = $resource('/posts/:id');
+              this.post = Posts.get({id: 123});
+              // also save(), remove()...
+            }
+          &lt;/script&gt;
+
+          <h1>{{post.title}}</h1>
+          <p>{{post.content}}</p>
+        </script>
+      </slide>
+
+      <!--
+        * Automatic discovery of injection points
+        * All things in the framework get injection
+      -->
+      <slide>
+        <h2>Dependency Management</h2>
+        <script type="syntaxhighlighter" slide:code>
+          &lt;script&gt;
+            // Automatic injection
+            function PostsController(postStorage) {
+              this.posts = postStorage.list();
+              // ...
+            }
+
+            angular.service('postStorage', function() {
+              return ...;
+            });
+          &lt;/script&gt;
+        </script>
+      </slide>
+
+      <!--
+        * Complex apps need real tests
+      -->
+      <slide>
+        <h2>Testability</h2>
+        <ul>
+          <li>No DOM manipulation in controllers
+          <li>Mocks provided for XHR
+          <li>Easily mock out services
+          <li>JsTD and Jasmine integration
+        </ul>
+      </slide>
+
+      <!--
+        * E2E tests are needed too
+      -->
+      <slide>
+        <h2>End-to-End runner</h2>
+        <script type="syntaxhighlighter" slide:code="js">
+          describe('ProfileController', function() {
+            it('should save profiles', function() {
+              browser().navigateTo('/profiles/mine');
+              expect(element('h2').text()).
+                toEqual('Hello, Elliott.');
+              input('firstname').
+                enter('Ethan');
+              element('#save').click();
+              browser().reload();
+              expect(element('h2').text()).
+                toEqual('Hello, Ethan.');
+            });
+          });
+        </script>
+      </slide>
+
+      <!--
+        * Have your tests evolve with your app
+      -->
+      <slide>
+        <h2>End-to-End DSL</h2>
+        <script type="syntaxhighlighter" slide:code="js">
+           describe('ProfileController', function() {
+            it('should save profiles', function() {
+              browser().navigateTo('/profiles/mine');
+              expect(profilePage().greeting()).
+                toEqual('Hello, Elliott.');
+              profilePage().firstName().enter('Ethan');
+              profilePage().save();
+              browser().reload();
+              expect(profilePage().greeting()).
+                toEqual('Hello, Ethan.');
+            });
+          });
+
+        </script>
+      </slide>
+
+      <slide class="interlude">
+        <h2></h2>
+        <h3>
+          Okay, lets see some demos!
+        </h3>
+      </slide>
+
+    </deck>
+
+  </body>
+</html>
