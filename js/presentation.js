@@ -1,7 +1,7 @@
 (function(module) {
 
 module.controller('PresentationController', PresentationController);
-function PresentationController($scope, $defer, $location, keyboard) {
+function PresentationController($scope, $location, keyboard) {
   var RIGHT_ARROW = 39;
   var LEFT_ARROW = 37;
 
@@ -61,8 +61,6 @@ function KeyboardService($rootScope) {
 module.directive('deck', function() {
   function link($scope, element, attrs) {
     var slides = element.find('slide');
-    // var name = atrs.current;
-    // var total = atrs.total;
 
     function restack() {
       slides.each(function(i, slide) {
