@@ -20,7 +20,7 @@
       <h2>
         Elliott Sprehn
       </h2>
-      <h3 ng-show="isAfter()">@ElliottZ</h3>
+      <h3 ng-show="isAfter()">@ElliottZ / esprehn (at) gmail.com</h3>
     </div>
 
     <p id="counter" ng-show="isInsideDeck()">
@@ -178,9 +178,9 @@
         <h2>RESTful resources</h2>
         <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
-            function PostController($resource) {
+            function PostController($scope, $resource) {
               var Posts = $resource('/posts/:id');
-              this.post = Posts.get({id: 123});
+              $scope.post = Posts.get({id: 123});
               // also save(), remove()...
             }
           &lt;/script&gt;
@@ -199,14 +199,15 @@
         <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             // Automatic injection
-            function PostsController(postStorage) {
-              this.posts = postStorage.list();
+            function PostsController($scope, postStorage) {
+              $scope.posts = postStorage.list();
               // ...
             }
 
-            angular.service('postStorage', function() {
-              return ...;
-            });
+            angular.module('app', []).
+              factory('postStorage', function() {
+                return ...;
+              });
           &lt;/script&gt;
         </script>
       </slide>
@@ -264,7 +265,6 @@
                 toEqual('Hello, Ethan.');
             });
           });
-
         </script>
       </slide>
 

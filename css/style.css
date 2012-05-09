@@ -68,7 +68,6 @@ slide {
   -webkit-transition: left 0.25s, -webkit-transform 0.8s;
   -webkit-transform: scale(0.85) skew(-2deg) translateZ(0);
   -webkit-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
-  -webkit-transform: scale(0.85) skew(-2deg) translateZ(0);
   -moz-transition: left 0.8s, -moz-transform 0.8s;
   -moz-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
   -moz-transform: scale(0.85) skew(-2deg) translateZ(0);
