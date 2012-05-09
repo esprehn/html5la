@@ -6,24 +6,24 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="syntaxhighlighter/shThemeDefault.css" type="text/css">
     <script src="js/jquery-1.7.min.js"></script>
-    <script src="js/angular-0.10.5.min.js" ng:autobind></script>
+    <script src="js/angular-1.0.0rc8.min.js"></script>
     <script src="js/presentation.js"></script>
     <script src="syntaxhighlighter/shCore.js"></script>
     <script src="syntaxhighlighter/shBrushJScript.js"></script>
     <script src="syntaxhighlighter/shBrushXml.js"></script>
     <script>SyntaxHighlighter.all();</script>
   </head>
-  <body ng:controller="PresentationController">
+  <body ng-app="PresentationModule" ng-controller="PresentationController">
 
     <div id="intro">
       <h1>AngularJS</h1>
       <h2>
         Elliott Sprehn
       </h2>
-      <h3 ng:show="isAfter()">@ElliottZ</h3>
+      <h3 ng-show="isAfter()">@ElliottZ</h3>
     </div>
 
-    <p id="counter" ng:show="isInsideDeck()">
+    <p id="counter" ng-show="isInsideDeck()">
       <a href="#/slides/1">&laquo;</a>
       {{activeSlide + 1}} / {{totalSlides}}
       <a href="#/slides/{{totalSlides}}">&raquo;</a>
@@ -103,12 +103,12 @@
           <li>Controllers
           <li>Services
         </ul>
-        <script type="syntaxhighlighter" slide:code>
-          <div ng:controller="CommentController">
+        <script type="syntaxhighlighter" slide-code>
+          <div ng-controller="CommentController">
             <textarea
-              ng:model="message"
+              ng-model="message"
               name="message"></textarea>
-            <button ng:click="post()">Post</button>
+            <button ng-click="post()">Post</button>
           </div>
         </script>
       </slide>
@@ -123,13 +123,13 @@
           <li>Custom elements
           <li>Flexible compiler
         </ul>
-        <script type="syntaxhighlighter" slide:code>
-          <app:toolbar>
-            <input ng:model="message" name="message">
-            <button ng:click="send(message)">
+        <script type="syntaxhighlighter" slide-code>
+          <app-toolbar>
+            <input ng-model="message" name="message">
+            <button ng-click="send(message)">
               Send message to {{username}}
             </button>
-          </app:toolbar>
+          </app-toolbar>
         </script>
       </slide>
 
@@ -140,12 +140,12 @@
       -->
       <slide>
         <h2>Two-way data binding</h2>
-        <script type="syntaxhighlighter" slide:code>
-          <input ng:model="start" type="date">
-          <input ng:model="end" type="date">
+        <script type="syntaxhighlighter" slide-code>
+          <input ng-model="start" type="date">
+          <input ng-model="end" type="date">
           <select
-            ng:model="meal"
-            ng:options="food.name for food in foods">
+            ng-model="meal"
+            ng-options="food.name for food in foods">
           </select>
           <p>
             Dinner is
@@ -162,8 +162,8 @@
           <li>Fast
           <li>Live updating
         </ul>
-        <script type="syntaxhighlighter" slide:code>
-          <div ng:repeat="comment in comments">
+        <script type="syntaxhighlighter" slide-code>
+          <div ng-repeat="comment in comments">
             <h2>Posted by {{comment.username}}</h2>
             <p>{{comment.text}}</p>
           </div>
@@ -176,7 +176,7 @@
       -->
       <slide>
         <h2>RESTful resources</h2>
-        <script type="syntaxhighlighter" slide:code>
+        <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             function PostController($resource) {
               var Posts = $resource('/posts/:id');
@@ -196,7 +196,7 @@
       -->
       <slide>
         <h2>Dependency Management</h2>
-        <script type="syntaxhighlighter" slide:code>
+        <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             // Automatic injection
             function PostsController(postStorage) {
@@ -229,7 +229,7 @@
       -->
       <slide>
         <h2>End-to-End runner</h2>
-        <script type="syntaxhighlighter" slide:code="js">
+        <script type="syntaxhighlighter" slide-code="js">
           describe('ProfileController', function() {
             it('should save profiles', function() {
               browser().navigateTo('/profiles/mine');
@@ -251,7 +251,7 @@
       -->
       <slide>
         <h2>End-to-End DSL</h2>
-        <script type="syntaxhighlighter" slide:code="js">
+        <script type="syntaxhighlighter" slide-code="js">
            describe('ProfileController', function() {
             it('should save profiles', function() {
               browser().navigateTo('/profiles/mine');
