@@ -2,14 +2,12 @@
 
 module.controller('PresentationController', PresentationController);
 function PresentationController($scope, $location, keyboard) {
-  var RIGHT_ARROW = 39;
-  var LEFT_ARROW = 37;
 
-  keyboard.on(RIGHT_ARROW, function() {
+  $scope.$watch(keyboard.right, function() {
     $scope.activeSlide++;
   });
 
-  keyboard.on(LEFT_ARROW, function() {
+  $scope.$watch(keyboard.left, function() {
     $scope.activeSlide--;
   });
 
@@ -46,19 +44,55 @@ function PresentationController($scope, $location, keyboard) {
 
 module.service('keyboard', KeyboardService);
 function KeyboardService($rootScope) {
-  // TODO(esprehn): This implementation leaks since we never remove the listener
-  // even if the controller has been $destroy'ed.
-  this.on = function(keyCode, callback) {
-    $(window).keydown(function(e) {
-      if (e.keyCode == keyCode) {
-        $rootScope.$apply(callback);
-      }
+  var history = {};
+
+  $(window).keydown(function(e) {
+    $rootScope.$apply(function() {
+      history[e.keyCode]++;
     });
+  });
+
+  this.observe = function(code) {
+    history[code] = history[code] || 0;
+
+    return function() {
+      return history[code];
+    };
+  };
+
+  for (var key in KeyboardService.KeyMap) {
+    this[key] = this.observe(KeyboardService.KeyMap[key]);
+  }
+};
+KeyboardService.KeyMap = {
+  up: 38,
+  down: 40,
+  left: 37,
+  right: 39,
+  pageUp: 34,
+  pageDown: 33
+};
+
+
+module.service('title', TitleService);
+function TitleService() {
+  var title = $('title');
+  var prefix = title.text();
+
+  this.reset = function() {
+    this.set('');
+  };
+
+  this.set = function(value) {
+    title.text(prefix);
+    if (value) {
+      title.text(prefix + ': ' + value);
+    }
   };
 };
 
 
-module.directive('deck', function() {
+module.directive('deck', function(title) {
   function link($scope, element, attrs) {
     var slides = element.find('slide');
 
@@ -77,12 +111,14 @@ module.directive('deck', function() {
     $scope.current(-1);
 
     $scope.$watch('current()', function(value) {
+      title.reset();
       slides.each(function(i, slide) {
         $(slide).removeClass('previous current next');
         if (i < value) {
           $(slide).addClass('previous');
         } else if (i == value) {
           $(slide).addClass('current');
+          title.set($(slide).find('h2').text());
         } else {
           $(slide).addClass('next');
         }
@@ -120,6 +156,7 @@ module.directive('slideCode', function() {
     element.attr('ng-non-bindable', '');
   };
 });
+
 
 module.directive('slideFlip', function() {
   return function(scope, element, attrs) {
