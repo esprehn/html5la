@@ -2,15 +2,15 @@
 
 module.controller('PresentationController', PresentationController);
 function PresentationController($scope, $location, url) {
+  // SlideDeck transition animation length
   var ANIMATION_DURATION = 0.5;
 
   $scope.totalSlides = 0;
   $scope.activeSlide = -1;
 
   $scope.$watch('activeSlide', function(value) {
-    if (value == -1) {;
-      url.set('/', ANIMATION_DURATION);
-    } else if (value > -1) {
+    url.set('/', ANIMATION_DURATION);
+    if (value > -1) {
       url.set('/slides/' + (value + 1), ANIMATION_DURATION);
     }
   });
