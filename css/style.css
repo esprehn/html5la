@@ -44,11 +44,14 @@ h1, h2, h3, h4, ul, ol, li, p {
   padding: 200px 0 100px 0;
 }
 
-deck, slide {
+slide,
+slide-deck,
+slide-front,
+slide-back {
   display: block;
 }
 
-deck {
+slide-deck {
   position: absolute;
   top: 0;
   z-index: 1;
@@ -65,10 +68,10 @@ slide {
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #666;
-  -webkit-transition: left 0.25s, -webkit-transform 0.8s;
+  -webkit-transition: left 0.25s, -webkit-transform 0.5s;
   -webkit-transform: scale(0.85) skew(-2deg) translateZ(0);
   -webkit-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
-  -moz-transition: left 0.8s, -moz-transform 0.8s;
+  -moz-transition: left 0.25s, -moz-transform 0.5s;
   -moz-box-shadow: rgba(0, 0, 0, 0.9) 0px 2px 6px;
   -moz-transform: scale(0.85) skew(-2deg) translateZ(0);
   left: 880px;
@@ -181,24 +184,26 @@ slide h3 {
 }
 
 
-[slide-flip] .back,
-[slide-flip] .front {
+[slide-flip] slide-back,
+[slide-flip] slide-front {
   height: 0;
   opacity: 0;
   overflow: hidden;
   -webkit-transition: opacity 1s;
 }
 
-[slide-flip] .back .flip,
-[slide-flip] .front .flip {
+[slide-flip] slide-back .flip,
+[slide-flip] slide-front .flip {
   display: none;
 }
 
-[slide-flip] .expanded .flip {
+[slide-flip] slide-back.expanded .flip,
+[slide-flip] slide-front.expanded .flip {
   display: block;
 }
 
-[slide-flip] .expanded {
+[slide-flip] slide-front.expanded,
+[slide-flip] slide-back.expanded {
   opacity: 1;
   height: auto;
   overflow: visible;

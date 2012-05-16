@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="syntaxhighlighter/shThemeDefault.css" type="text/css">
     <script src="js/jquery-1.7.min.js"></script>
     <script src="js/angular-1.0.0rc8.min.js"></script>
+    <script src="js/slidedeck.js"></script>
     <script src="js/dom.js"></script>
     <script src="js/presentation.js"></script>
     <script src="js/keyboard.js"></script>
@@ -15,7 +16,8 @@
     <script src="syntaxhighlighter/shBrushXml.js"></script>
     <script>
       SyntaxHighlighter.all();
-      angular.module('AppModule', ['PresentationModule', 'KeyboardModule']);
+      angular.module('AppModule',
+        ['PresentationModule', 'KeyboardModule', 'SlideDeckModule']);
     </script>
   </head>
   <body
@@ -34,13 +36,13 @@
       <h3 ng-show="isAfter()">@ElliottZ / esprehn (at) gmail.com</h3>
     </div>
 
-    <p id="counter" ng-show="isInsideDeck()">
+    <p id="counter" ng-show="isInside()">
       <a href="#/slides/1">&laquo;</a>
       {{activeSlide + 1}} / {{totalSlides}}
       <a href="#/slides/{{totalSlides}}">&raquo;</a>
     </p>
 
-    <deck current="activeSlide" total="totalSlides">
+    <slide-deck current="activeSlide" total="totalSlides">
       <!--
         * JavaScript was mostly fancy forms.
       -->
@@ -174,7 +176,7 @@
       <slide slide-flip>
         <h2>Two-way data binding</h2>
 
-        <div class="front expanded">
+        <slide-front>
           <span class="flip">See it live</span>
           <script type="syntaxhighlighter" slide-code>
             <input ng-model="start" type="date">
@@ -190,9 +192,9 @@
               and dinner will be {{meal.name}}.
             </p>
           </script>
-        </div>
+        </slide-front>
 
-        <div class="back party-controller" ng-controller="PartyController">
+        <slide-back ng-controller="PartyController" class="party-controller">
           <span class="flip">See the code</span>
           <script>
             function PartyController($scope) {
@@ -219,7 +221,7 @@
             to <strong>{{end | date:'MMMM dd, yyyy'}}</strong><br>
             and dinner will be <strong>{{meal.name}}</strong>.
           </p>
-        </div>
+        </slide-back>
       </slide>
 
       <slide>
@@ -426,7 +428,7 @@
         </h3>
       </slide>
 
-    </deck>
+    </slide-deck>
 
   </body>
 </html>
