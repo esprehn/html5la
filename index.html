@@ -76,7 +76,7 @@
           <strong>tons</strong> of JavaScript!
         </h3>
         <p>
-            and the need to think differently.
+          and the need to think differently.
         </p>
       </slide>
 
@@ -89,7 +89,7 @@
           <li>Framework for building web apps
           <li>Friends with jQuery (and others)
           <li>Open Source on Github
-          <li>Google funded
+          <li>By Google
         </ul>
       </slide>
 
@@ -195,20 +195,67 @@
         * All things in the framework get injection
       -->
       <slide>
-        <h2>Dependency Management</h2>
+        <h2>Dependency management</h2>
         <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             // Automatic injection
-            function PostsController($scope, postStorage) {
-              $scope.posts = postStorage.list();
-              // ...
+            function PostsController($scope, storage) {
+              $scope.posts = storage.list();
+            }
+
+            function StorageService($resource) {
+              this.list = function() { /* ... */ };
             }
 
             angular.module('app', []).
-              factory('postStorage', function() {
-                return ...;
-              });
+              service('storage', StorageService);
           &lt;/script&gt;
+        </script>
+      </slide>
+
+     <!--
+        * Modules and dependencies between them
+        * Only load the code needed in tests
+      -->
+      <slide>
+        <h2>Feature modules</h2>
+        <script type="syntaxhighlighter" slide-code>
+          &lt;script&gt;
+            angular.module('app',
+              ['login', 'widgets', 'backend']);
+
+            angular.module('backend', []).
+              service('storage', StorageService).
+              factory('request', ...);
+
+            angular.module('widgets', []).
+              directive('appButton', ...).
+              directive('appDropDown', ...);
+          &lt;/script&gt;
+        </script>
+      </slide>
+
+     <!--
+        * Complex form validation framework
+        * Easy CSS styling
+        * Extensible to custom widgets
+      -->
+      <slide>
+        <h2>Forms and validation</h2>
+        <script type="syntaxhighlighter" slide-code>
+          <form name="commentForm" novalidate>
+            <input ng-model="comment.body" name="body"
+              requried>
+
+            <p ng-show="commentForm.body.$invalid">
+              Comment required.
+            </p>
+
+            <p ng-show="commentForm.$invalid &&
+                        commentForm.$dirty">
+              Please enter your name and a comment.
+            </p>
+          </form>
         </script>
       </slide>
 
