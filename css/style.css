@@ -165,3 +165,59 @@ slide h3 {
 .syntaxhighlighter .gutter {
   visibility: hidden;
 }
+
+[slide-flip] .flip {
+  color: #6D9ABB;
+  font-size: 0.7em;
+  position: absolute;
+  top: 1.3em;
+  right: 2em;
+  display: block;
+}
+
+[slide-flip] .flip:hover {
+  text-decoration: underline;
+  color: #0063A4;
+}
+
+
+[slide-flip] .back,
+[slide-flip] .front {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  -webkit-transition: opacity 1s;
+}
+
+[slide-flip] .back .flip,
+[slide-flip] .front .flip {
+  display: none;
+}
+
+[slide-flip] .expanded .flip {
+  display: block;
+}
+
+[slide-flip] .expanded {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+.party-controller {
+  margin: 0.5em 0 0 0.5em;
+}
+
+.party-controller input,
+.party-controller select {
+  font-size: 1em;
+  border: 1px solid #3D3D3D;
+  display: inline-block;
+  width: 6.2em;
+}
+
+.party-controller p {
+  line-height: 2em;
+  white-space: normal;
+  margin-top: 0.5em;
+}

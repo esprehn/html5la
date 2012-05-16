@@ -121,4 +121,16 @@ module.directive('slideCode', function() {
   };
 });
 
+module.directive('slideFlip', function() {
+  return function(scope, element, attrs) {
+    var back = element.find('.back');
+    var front = element.find('.front');
+
+    element.find('.flip').click(function() {
+      back.toggleClass('expanded');
+      front.toggleClass('expanded');
+    });
+  };
+});
+
 })(angular.module('PresentationModule', []));

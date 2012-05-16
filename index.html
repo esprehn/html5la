@@ -89,7 +89,7 @@
           <li>Framework for building web apps
           <li>Friends with jQuery (and others)
           <li>Open Source on Github
-          <li>By Google
+          <li>Google funded
         </ul>
       </slide>
 
@@ -134,13 +134,68 @@
       </slide>
 
       <!--
+        * Use the future of HTML5 Web Components today
+      -->
+      <slide>
+        <h2>UI components</h2>
+        <script type="syntaxhighlighter" slide-code>
+          <ui-panel ng-controller="EmailController">
+            <h2>Compose email</h2>
+
+            <ui-toolbar>
+              <button ng-click="send()">Send</button>
+            </ui-toolbar>
+
+            <input ng-model="to"
+              ui-autocomplete="loadSuggestion(to)">
+            <input ng-model="subject">
+
+            <ui-editor ng-model="body"></ui-editor>
+          </ui-panel>
+        </script>
+      </slide>
+
+      <!--
         * Modern apps much simpler with data binding
         * We know better now...
         * More Flex goodness
       -->
-      <slide>
+      <slide slide-flip>
         <h2>Two-way data binding</h2>
-        <script type="syntaxhighlighter" slide-code>
+
+        <div class="front expanded">
+          <span class="flip">See it live</span>
+          <script type="syntaxhighlighter" slide-code>
+            <input ng-model="start" type="date">
+            <input ng-model="end" type="date">
+            <select
+              ng-model="meal"
+              ng-options="food.name for food in foods">
+            </select>
+            <p>
+              The party is
+              from {{start | date:'MMMM dd, yyyy'}}
+              to {{end | date:'MMMM dd, yyyy'}}
+              and dinner will be {{meal.name}}.
+            </p>
+          </script>
+        </div>
+
+        <div class="back party-controller" ng-controller="PartyController">
+          <span class="flip">See the code</span>
+          <script>
+            function PartyController($scope) {
+              $scope.start = '2012-05-16';
+              $scope.end = '2012-05-17';
+              $scope.foods = [
+                {name: 'Indian'},
+                {name: 'Thai'},
+                {name: 'Chinese'},
+                {name: 'Pho'}
+              ];
+              $scope.meal = $scope.foods[1];
+            }
+          </script>
           <input ng-model="start" type="date">
           <input ng-model="end" type="date">
           <select
@@ -148,12 +203,12 @@
             ng-options="food.name for food in foods">
           </select>
           <p>
-            Dinner is
-            from {{start | date:'short'}}
-            to {{end | date:'short'}}
-            and will be {{meal.name}}.
+            The party is<br>
+            from <strong>{{start | date:'MMMM dd, yyyy'}}</strong><br>
+            to <strong>{{end | date:'MMMM dd, yyyy'}}</strong><br>
+            and dinner will be <strong>{{meal.name}}</strong>.
           </p>
-        </script>
+        </div>
       </slide>
 
       <slide>
