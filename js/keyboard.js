@@ -47,4 +47,4 @@ KeyboardService.configureDirectives({
   'PageDown': 33
 });
 
-})(angular.module('KeyboardModule', []));
+})(angular.module('KeyboardModule', ['DomModule']));
