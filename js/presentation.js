@@ -1,15 +1,7 @@
 (function(module) {
 
 module.controller('PresentationController', PresentationController);
-function PresentationController($scope, $location, keyboard) {
-
-  $scope.$watch(keyboard.right, function() {
-    $scope.activeSlide++;
-  });
-
-  $scope.$watch(keyboard.left, function() {
-    $scope.activeSlide--;
-  });
+function PresentationController($scope, $location) {
 
   $scope.$watch('activeSlide', function(value) {
     if (value == -1) {
@@ -28,6 +20,14 @@ function PresentationController($scope, $location, keyboard) {
     }
   });
 
+  $scope.next = function() {
+    $scope.activeSlide++;
+  };
+
+  $scope.previous = function() {
+    $scope.activeSlide--;
+  };
+
   $scope.isInsideDeck = function() {
     return !this.isBefore() && !this.isAfter();
   };
@@ -39,38 +39,6 @@ function PresentationController($scope, $location, keyboard) {
   $scope.isAfter = function() {
     return $scope.activeSlide >= $scope.totalSlides;
   };
-};
-
-
-module.service('keyboard', KeyboardService);
-function KeyboardService($rootScope) {
-  var history = {};
-
-  $(window).keydown(function(e) {
-    $rootScope.$apply(function() {
-      history[e.keyCode]++;
-    });
-  });
-
-  this.observe = function(code) {
-    history[code] = history[code] || 0;
-
-    return function() {
-      return history[code];
-    };
-  };
-
-  for (var key in KeyboardService.KeyMap) {
-    this[key] = this.observe(KeyboardService.KeyMap[key]);
-  }
-};
-KeyboardService.KeyMap = {
-  up: 38,
-  down: 40,
-  left: 37,
-  right: 39,
-  pageUp: 34,
-  pageDown: 33
 };
 
 

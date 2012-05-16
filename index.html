@@ -8,12 +8,22 @@
     <script src="js/jquery-1.7.min.js"></script>
     <script src="js/angular-1.0.0rc8.min.js"></script>
     <script src="js/presentation.js"></script>
+    <script src="js/keyboard.js"></script>
     <script src="syntaxhighlighter/shCore.js"></script>
     <script src="syntaxhighlighter/shBrushJScript.js"></script>
     <script src="syntaxhighlighter/shBrushXml.js"></script>
-    <script>SyntaxHighlighter.all();</script>
+    <script>
+      SyntaxHighlighter.all();
+      angular.module('AppModule', ['PresentationModule', 'KeyboardModule']);
+    </script>
   </head>
-  <body ng-app="PresentationModule" ng-controller="PresentationController">
+  <body
+    ng-app="AppModule"
+    ng-controller="PresentationController"
+    keyboard-left="previous()"
+    keyboard-right="next()"
+    keyboard-pageUp="previous()"
+    keyboard-pageDown="next()">
 
     <div id="intro">
       <h1>AngularJS</h1>
