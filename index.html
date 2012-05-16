@@ -195,7 +195,7 @@
         * All things in the framework get injection
       -->
       <slide>
-        <h2>Dependency management</h2>
+        <h2>Dependency injection</h2>
         <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             // Automatic injection
@@ -218,11 +218,11 @@
         * Only load the code needed in tests
       -->
       <slide>
-        <h2>Feature modules</h2>
+        <h2>Modularized code</h2>
         <script type="syntaxhighlighter" slide-code>
           &lt;script&gt;
             angular.module('app',
-              ['login', 'widgets', 'backend']);
+              ['widgets', 'backend']);
 
             angular.module('backend', []).
               service('storage', StorageService).
@@ -232,6 +232,7 @@
               directive('appButton', ...).
               directive('appDropDown', ...);
           &lt;/script&gt;
+          <body ng-app="app">
         </script>
       </slide>
 
@@ -243,7 +244,7 @@
       <slide>
         <h2>Forms and validation</h2>
         <script type="syntaxhighlighter" slide-code>
-          <form name="commentForm" novalidate>
+          <ng-form name="commentForm">
             <input ng-model="comment.body" name="body"
               requried>
 
@@ -253,6 +254,29 @@
 
             <p ng-show="commentForm.$invalid &&
                         commentForm.$dirty">
+              Please enter your name and a comment.
+            </p>
+          </ng-form>
+        </script>
+      </slide>
+
+
+     <!--
+        * It can still be valid.
+      -->
+      <slide>
+        <h2>Valid HTML5</h2>
+        <script type="syntaxhighlighter" slide-code>
+          <form name="commentForm" novalidate>
+            <input data-ng-model="comment.body"
+              name="body" requried>
+
+            <p data-ng-show="commentForm.body.$invalid">
+              Comment required.
+            </p>
+
+            <p data-ng-show="commentForm.$invalid &&
+                             commentForm.$dirty">
               Please enter your name and a comment.
             </p>
           </form>
