@@ -44,6 +44,17 @@ h1, h2, h3, h4, ul, ol, li, p {
   padding: 200px 0 100px 0;
 }
 
+#intro a,
+#intro a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+#intro a:hover {
+  text-decoration: underline;
+}
+
+
 slide,
 slide-deck,
 slide-front,
@@ -77,7 +88,6 @@ slide {
   left: 880px;
 }
 
-slide p,
 slide li {
   white-space: pre-line;
 }
@@ -225,4 +235,17 @@ slide h3 {
   line-height: 2em;
   white-space: normal;
   margin-top: 0.5em;
+}
+
+.big-code .syntaxhighlighter {
+  font-size: 0.9em;
+}
+
+.big-code > h3 {
+  text-align: center;
+  margin: 0.5em;
+}
+
+slide li code {
+  font-weight: bold;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AngularJS</title>
+    <title>Screenshots</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="syntaxhighlighter/shThemeDefault.css" type="text/css">
@@ -29,11 +29,14 @@
     keyboard-pageDown="next()">
 
     <div id="intro">
-      <h1>AngularJS</h1>
+      <h1>Screenshots</h1>
       <h2>
         Elliott Sprehn
       </h2>
-      <h3 ng-show="isAfter()">@ElliottZ / esprehn (at) gmail.com</h3>
+      <h3 ng:hide="isInside()">
+          <a href="http://elliottsprehn.com/@">@ElliottZ</a> /
+          <a href="http://elliottsprehn.com/+">http://elliottsprehn.com/+</a>
+      </h3>
     </div>
 
     <p id="counter" ng-show="isInside()">
@@ -43,383 +46,212 @@
     </p>
 
     <slide-deck current="activeSlide" total="totalSlides">
-      <!--
-        * JavaScript was mostly fancy forms.
-      -->
-      <slide>
-        <h2>Remember Web 1.0 ?</h2>
-        <ol>
-          <li>Create a template
-          <li>Write a little JavaScript
-          <li>Style it
-        </ol>
-      </slide>
 
-      <!--
-        * JSON, XHR, Google Maps, GMail, etc.
-      -->
       <slide>
-        <h2>Remember Web 2.0 ?</h2>
-        <ol>
-          <li>Create a template
-          <li>Create web services
-          <li>Write a bunch of JavaScript
-          <li>Style it
-        </ol>
-      </slide>
-
-      <!--
-        * Advanced forms, network, location services
-        * Tons of power, but tons of complexity
-      -->
-      <slide>
-        <h2>Now HTML5</h2>
+        <h2>What is Google Feedback ?</h2>
         <p>
-          <img src="images/HTML5_Logo_512.png" height="400">
+          <img src="images/describe.png">
+        </p>
+      </slide>
+
+      <slide>
+        <h2>Screenshots in JavaScript (on the web)</h2>
+        <p>
+          <img src="images/preview.png" width="760">
         </p>
       </slide>
 
       <!--
-        * Amount of complexity in a typical app has grown substantially.
-        * Need a way to manage that complexity
+        * Feedback is all about not asking users survey questions
+        * Screenshot is super important
       -->
-      <slide class="interlude">
-        <h2>and that means...</h2>
-        <h3>
-          <strong>tons</strong> of JavaScript!
-        </h3>
+      <slide>
+        <h2>Why screenshots</h2>
+        <ul>
+          <li>More useful feedback
+
+          <li>Users write bad descriptions
+
+          <li>Annotations show location of issues
+        </ul>
+      </slide>
+
+      <!--
+        * Google has complicated ACLs, server side rendering not easy
+        * Blackout must be client side
+        * Server side rendering = lots of resources
+        * JS is cross platform
+      -->
+      <slide>
+        <h2>Why client side</h2>
+        <ul>
+          <li>Privacy
+
+          <li>Blackouts
+
+          <li>Scalability
+
+          <li>Cross platform
+        </ul>
+      </slide>
+
+      <!--
+        * Native API for screenshots
+        * Users don't install things (or can't)
+        * Getting users to update extensions is worse
+        * Different JS for each browser extension, C++ for IE
+      -->
+      <slide>
+        <h2>What about extensions</h2>
+        <ul>
+          <li>Angry users don't install things
+
+          <li>Lots of browsers to support
+
+          <li>Policies prevent installs
+        </ul>
+      </slide>
+
+      <!--
+        * Insecure domain so we can support untrusted user uploaded content
+      -->
+      <slide>
+        <h2>Feedback internals</h2>
         <p>
-          and the need to think differently.
+          <img src="images/feedback-arch.png" height="550">
         </p>
       </slide>
 
       <!--
-        * Integrates with jQuery directly, plays well with most others.
+        * Clone the whole document
+        * Make it stop changing
+        * Lets user annotate
+        * Stabilize rendering
+        * "Frozen" appearance
       -->
       <slide>
-        <h2>AngularJS</h2>
-        <ul>
-          <li>Framework for building web apps
-          <li>Friends with jQuery (and others)
-          <li>Open Source on Github
-          <li>Google funded
-        </ul>
+        <h2>Clone the page</h2>
+        <p>
+          <img src="images/zombie-page.png" width="850">
+        </p>
       </slide>
 
-      <!--
-        * Encapsulated controllers without DOM manipulation.
-        * Reusable services that abstract away logic (better for tests).
-      -->
-      <slide>
-        <h2>Model-View-Controller</h2>
-        <ul>
-          <li>Controllers
-          <li>Services
-        </ul>
+      <slide class="big-code">
+        <h2>Measuring text</h2>
         <script type="syntaxhighlighter" slide-code>
-          <div ng-controller="CommentController">
-            <textarea
-              ng-model="message"
-              name="message"></textarea>
-            <button ng-click="post()">Post</button>
-          </div>
-        </script>
-      </slide>
-
-      <!--
-        * Bring the power of MXML (Flex) to HTML
-      -->
-      <slide>
-        <h2>Declarative markup</h2>
-        <ul>
-          <li>Custom attributes
-          <li>Custom elements
-          <li>Flexible compiler
-        </ul>
-        <script type="syntaxhighlighter" slide-code>
-          <app-toolbar>
-            <input ng-model="message" name="message">
-            <button ng-click="send(message)">
-              Send message to {{username}}
-            </button>
-          </app-toolbar>
-        </script>
-      </slide>
-
-      <!--
-        * Use the future of HTML5 Web Components today
-      -->
-      <slide>
-        <h2>UI components</h2>
-        <script type="syntaxhighlighter" slide-code>
-          <ui-panel ng-controller="EmailController">
-            <h2>Compose email</h2>
-
-            <ui-toolbar>
-              <button ng-click="send()">Send</button>
-            </ui-toolbar>
-
-            <input ng-model="to"
-              ui-autocomplete="loadSuggestion(to)">
-            <input ng-model="subject">
-
-            <ui-editor ng-model="body"></ui-editor>
-          </ui-panel>
-        </script>
-      </slide>
-
-      <!--
-        * Modern apps much simpler with data binding
-        * We know better now...
-        * More Flex goodness
-      -->
-      <slide slide-flip>
-        <h2>Two-way data binding</h2>
-
-        <slide-front>
-          <span class="flip">See it live</span>
-          <script type="syntaxhighlighter" slide-code>
-            <input ng-model="start" type="date">
-            <input ng-model="end" type="date">
-            <select
-              ng-model="meal"
-              ng-options="food.name for food in foods">
-            </select>
-            <p>
-              The party is
-              from {{start | date:'MMMM dd, yyyy'}}
-              to {{end | date:'MMMM dd, yyyy'}}
-              and dinner will be {{meal.name}}.
-            </p>
-          </script>
-        </slide-front>
-
-        <slide-back ng-controller="PartyController" class="party-controller">
-          <span class="flip">See the code</span>
-          <script>
-            function PartyController($scope) {
-              $scope.start = '2012-05-16';
-              $scope.end = '2012-05-17';
-              $scope.foods = [
-                {name: 'Indian'},
-                {name: 'Thai'},
-                {name: 'Chinese'},
-                {name: 'Pho'}
-              ];
-              $scope.meal = $scope.foods[1];
-            }
-          </script>
-          <input ng-model="start" type="date">
-          <input ng-model="end" type="date">
-          <select
-            ng-model="meal"
-            ng-options="food.name for food in foods">
-          </select>
           <p>
-            The party is<br>
-            from <strong>{{start | date:'MMMM dd, yyyy'}}</strong><br>
-            to <strong>{{end | date:'MMMM dd, yyyy'}}</strong><br>
-            and dinner will be <strong>{{meal.name}}</strong>.
+            <gft>Hello world.</gft>
           </p>
-        </slide-back>
-      </slide>
-
-      <slide>
-        <h2>Easy repetition</h2>
-        <ul>
-          <li>Fast
-          <li>Live updating
-        </ul>
-        <script type="syntaxhighlighter" slide-code>
-          <div ng-repeat="comment in comments">
-            <h2>Posted by {{comment.username}}</h2>
-            <p>{{comment.text}}</p>
-          </div>
         </script>
-      </slide>
 
-      <!--
-        * Automatic discovery of injection points
-        * All things in the framework get injection
-      -->
-      <slide>
-        <h2>RESTful resources</h2>
-        <script type="syntaxhighlighter" slide-code>
-          &lt;script&gt;
-            function PostController($scope, $resource) {
-              var Posts = $resource('/posts/:id');
-              $scope.post = Posts.get({id: 123});
-              // also save(), remove()...
-            }
-          &lt;/script&gt;
+        <h3>- OR -</h3>
 
-          <h1>{{post.title}}</h1>
-          <p>{{post.content}}</p>
-        </script>
-      </slide>
-
-      <!--
-        * Automatic discovery of injection points
-        * All things in the framework get injection
-      -->
-      <slide>
-        <h2>Dependency injection</h2>
-        <script type="syntaxhighlighter" slide-code>
-          &lt;script&gt;
-            // Automatic injection
-            function PostsController($scope, storage) {
-              $scope.posts = storage.list();
-            }
-
-            function StorageService($resource) {
-              this.list = function() { /* ... */ };
-            }
-
-            angular.module('app', []).
-              service('storage', StorageService);
-          &lt;/script&gt;
-        </script>
-      </slide>
-
-     <!--
-        * Modules and dependencies between them
-        * Only load the code needed in tests
-      -->
-      <slide>
-        <h2>Modularized code</h2>
-        <script type="syntaxhighlighter" slide-code>
-          &lt;script&gt;
-            angular.module('app',
-              ['widgets', 'backend']);
-
-            angular.module('backend', []).
-              service('storage', StorageService).
-              factory('request', ...);
-
-            angular.module('widgets', []).
-              directive('appButton', ...).
-              directive('appDropDown', ...);
-          &lt;/script&gt;
-          <body ng-app="app">
-        </script>
-      </slide>
-
-     <!--
-        * Complex form validation framework
-        * Easy CSS styling
-        * Extensible to custom widgets
-      -->
-      <slide>
-        <h2>Forms and validation</h2>
-        <script type="syntaxhighlighter" slide-code>
-          <ng-form name="commentForm">
-            <input ng-model="comment.body" name="body"
-              requried>
-
-            <p ng-show="commentForm.body.$invalid">
-              Comment required.
-            </p>
-
-            <p ng-show="commentForm.$invalid &&
-                        commentForm.$dirty">
-              Please enter your name and a comment.
-            </p>
-          </ng-form>
-        </script>
-      </slide>
-
-
-     <!--
-        * It can still be valid.
-      -->
-      <slide>
-        <h2>Valid HTML5</h2>
-        <script type="syntaxhighlighter" slide-code>
-          <form name="commentForm" novalidate>
-            <input data-ng-model="comment.body"
-              name="body" requried>
-
-            <p data-ng-show="commentForm.body.$invalid">
-              Comment required.
-            </p>
-
-            <p data-ng-show="commentForm.$invalid &&
-                             commentForm.$dirty">
-              Please enter your name and a comment.
-            </p>
-          </form>
-        </script>
-      </slide>
-
-     <!--
-        * Easy to add translated strings.
-        * Easy to add facebook style pluralization Elliott, Rachel and 10 others
-      -->
-      <slide>
-        <h2>i18n and l10n</h2>
-        <ul>
-          <li>Translation messages
-          <li>Localized currency and numbers
-          <li>Pluralization
-          <li>44+ locales supported.
-        </ul>
-      </slide>
-
-      <!--
-        * Complex apps need real tests
-      -->
-      <slide>
-        <h2>Testability</h2>
-        <ul>
-          <li>No DOM manipulation in controllers
-          <li>Mocks provided for XHR
-          <li>Easily mock out services
-          <li>JsTD and Jasmine integration
-        </ul>
-      </slide>
-
-      <!--
-        * E2E tests are needed too
-      -->
-      <slide>
-        <h2>End-to-End runner</h2>
         <script type="syntaxhighlighter" slide-code="js">
-          describe('ProfileController', function() {
-            it('should save profiles', function() {
-              browser().navigateTo('/profiles/mine');
-              expect(element('h2').text()).
-                toEqual('Hello, Elliott.');
-              input('firstname').
-                enter('Ethan');
-              element('#save').click();
-              browser().reload();
-              expect(element('h2').text()).
-                toEqual('Hello, Ethan.');
-            });
-          });
+          var range = document.createRange();
+          range.selectNode(textNode);
+          var rect =
+              range.getBoundingClientRect();
         </script>
       </slide>
 
+      <slide>
+        <h2>Proxy and serialize images</h2>
+        <ul>
+          <li>Proxy cross domain images
+
+          <li>Use an iframe on the proxy domain
+
+          <li>Serialize same domain images
+
+          <li><code>postMessage()</code> data urls
+        </ul>
+      </slide>
+
       <!--
-        * Have your tests evolve with your app
+        * This is how we think of a page when authoring
+        * Not how we think of it when styling
       -->
       <slide>
-        <h2>End-to-End DSL</h2>
+        <h2>Element tree</h2>
+        <p>
+          <img src="images/element-tree.png" height="550">
+        </p>
+      </slide>
+
+      <!--
+        * Separate renderers for different things: Frames, text, form controls,
+        * Order of the tree can be different based on z-index and positioning
+        * Collect commands with getBoundingClientRect offsetTop + offsetLeft
+        * Gotcha: Apply offsets inside frames
+      -->
+      <slide>
+        <h2>Render tree</h2>
+        <p>
+          <img src="images/render-tree.png" height="550">
+        </p>
+      </slide>
+
+      <!--
+        * Optimization: Only draw things inside the viewport
+        * Small subset of the canvas API: drawText, drawRect, ...
+      -->
+      <slide>
+        <h2>Create primitive commands</h2>
+        <p>
+          <img src="images/page-blocks.png" width="850">
+        </p>
+      </slide>
+
+      <slide>
+        <h2>Serialize commands</h2>
         <script type="syntaxhighlighter" slide-code="js">
-           describe('ProfileController', function() {
-            it('should save profiles', function() {
-              browser().navigateTo('/profiles/mine');
-              expect(profilePage().greeting()).
-                toEqual('Hello, Elliott.');
-              profilePage().firstName().enter('Ethan');
-              profilePage().save();
-              browser().reload();
-              expect(profilePage().greeting()).
-                toEqual('Hello, Ethan.');
-            });
-          });
+          [
+            {
+              "command": "pushClip",
+              "args": [0, 0, 8, 8]
+            },
+            {
+              "command": "drawText",
+              "args": [10, 10, "Hello World", "red"]
+            },
+            {
+              "command": "drawRect",
+              "args": [10, 10, 20, 20, "red", 2]
+            }
+          ]
         </script>
       </slide>
+
+      <slide>
+        <h2>Serialized commands (2)</h2>
+        <script type="syntaxhighlighter" slide-code="js">
+          [
+            // Command 1 is pushClip
+            [1, [0, 0, 8, 8]],
+
+            // Command 10 is drawText
+            [10, ["Hello World"]],
+
+            // Command 13 is drawRect
+            [13, [10, 10, 20, 20, "red", 2]],
+
+            // Command 2 is popClip
+            [2],
+          ]
+        </script>
+      </slide>
+
+      <slide>
+        <h2>Optimize commands</h2>
+        <script type="syntaxhighlighter" slide-code="js">
+          [
+            // Nothing to draw
+          ]
+        </script>
+      </slide>
+
+
+      <!--
 
       <slide class="interlude">
         <h2></h2>
@@ -427,6 +259,7 @@
           Okay, lets see some demos!
         </h3>
       </slide>
+      -->
 
     </slide-deck>
 
