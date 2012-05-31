@@ -290,21 +290,10 @@
         * Slam the GPU (3k+ commands in some products)
       -->
       <slide>
-        <h2>AsyncExecutor</h2>
-        <script type="syntaxhighlighter" slide-code="js">
-          var i = 0;
-          var commands = ...;
-
-          function next() {
-            if (i >= commands.length) return;
-
-            executeDrawingCommand(commands[i++]);
-
-            return next;
-          };
-
-          executor.execute(next);
-        </script>
+        <h2>Async Executor</h2>
+        <p>
+          <img src="images/executor-flow.png" height="520">
+        </p>
       </slide>
 
       <slide>
@@ -316,12 +305,29 @@
             while (isFunction(fn) && Date.now() < end) {
               fn = fn();
             }
-            if (fn) {
-              setTimeout(function() {
-                this.execute(fn);
-              }.bind(this), 0);
+            if (isFunction(fn)) {
+              var next = this.execute.bind(this, fn);
+              setTimeout(next, 0);
             }
-          }:
+          };
+        </script>
+      </slide>
+
+      <slide>
+        <h2>Async drawing</h2>
+        <script type="syntaxhighlighter" slide-code="js">
+          var i = 0;
+          var commands = ...;
+
+          function next() {
+            if (i >= commands.length) return;
+
+            executeDrawingCommand(commands[i++]);
+
+            return next;
+          }
+
+          executor.execute(next);
         </script>
       </slide>
 
@@ -330,10 +336,9 @@
         * No real recursion
       -->
       <slide>
-        <h2>AsyncExecutor DOM Traversal</h2>
+        <h2>Async DOM Traversal</h2>
         <script type="syntaxhighlighter" slide-code="js">
           function traverse(element, callback) {
-
             process(element);
 
             function next(child) {
@@ -341,10 +346,11 @@
               return traverse(child, function() {
                 return next(child.nextElementSibling);
               });
-            };
+            }
 
-            return next.bind(this,
-                element.firstElementChild);
+            return function() {
+              return next(element.firstElementChild);
+            };
           }
         </script>
       </slide>
@@ -354,7 +360,7 @@
         * Easier to understand what the code is doing
       -->
       <slide>
-        <h2>AsyncExecutor DOM Traversal (2)</h2>
+        <h2>Async DOM Traversal (2)</h2>
         <script type="syntaxhighlighter" slide-code="js">
           var i = 0;
           var elements = document.querySelector('*');
@@ -368,6 +374,37 @@
 
             return traverse;
           }
+        </script>
+      </slide>
+
+      <slide>
+        <h2>AsyncExecutor#forEach()</h2>
+        <script type="syntaxhighlighter" slide-code="js">
+          Executor.prototype.forEach =
+              function(array, fn) {
+
+            var i = 0;
+            this.execute(function next() {
+              if (i >= array.length) return;
+
+              fn(array[i++]);
+
+              return next;
+            });
+          };
+        </script>
+      </slide>
+
+      <slide>
+        <h2>Async DOM Traversal (3)</h2>
+        <script type="syntaxhighlighter" slide-code="js">
+          var executor = new Executor();
+          executor.quantumLength = 16;
+
+          var elements = document.querySelector('*');
+          executor.forEach(elements, function(element) {
+            // do something with the element...
+          });
         </script>
       </slide>
 
