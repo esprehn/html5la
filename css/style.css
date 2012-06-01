@@ -97,7 +97,7 @@ slide li {
 }
 
 slide ol,
-slide ul {
+slide > ul {
   list-style-position: inside;
   margin: 1em 0.5em;
 }
